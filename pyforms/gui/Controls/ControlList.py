@@ -6,8 +6,10 @@
 """
 
 from pyforms.gui.Controls.ControlBase import ControlBase
-from PyQt4 import uic, QtCore
-from PyQt4.QtGui import QWidget, QIcon, QTableWidgetItem, QAbstractItemView
+from pyforms.gui.Controls import ControlButton
+
+from PyQt4 import uic, QtCore, QtGui
+from PyQt4.QtGui import QWidget, QIcon, QTableWidgetItem, QAbstractItemView, QPushButton
 import os
 
 __author__ = "Ricardo Ribeiro"
@@ -100,6 +102,38 @@ class ControlList(ControlBase, QWidget):
             self.tableWidget.clearContents()
             self.tableWidget.setRowCount(0)
 
+    ##############################################
+    ##############################################
+    ##############################################
+    ##############################################
+
+    def setCellAsReadOnly(self, row, nbCol):
+        if isinstance(nbCol, list):
+            for i in nbCol:
+                item = self.tableWidget.item(row, i)
+                item.setFlags(QtCore.Qt.ItemIsEnabled)
+        else:
+            item = self.tableWidget.item(row, nbCol)
+            item.setFlags(QtCore.Qt.ItemIsEnabled)
+
+    def setCellColor(self, row, col, color):
+        item = self.tableWidget.item(row, col)
+        item.setBackground(QtGui.QColor(color[0], color[1], color[2]))
+
+    def addButtonToCell(self, row, col, text, function):
+        btn = QPushButton(self.tableWidget)
+        btn.setText(text)
+        btn.clicked.connect(function)
+        self.tableWidget.setCellWidget(row, col, btn)
+
+    def itemAt(self, item):
+        return self.tableWidget.itemAt(item)
+
+    ##############################################
+    ##############################################
+    ##############################################
+    ##############################################
+
     def __add__(self, other):
 
         index = self.tableWidget.rowCount()
@@ -181,7 +215,8 @@ class ControlList(ControlBase, QWidget):
         if value:
             self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         else:
-            self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectItems)
+            self.tableWidget.setSelectionBehavior(
+                QAbstractItemView.SelectItems)
 
     @property
     def count(self): return self.tableWidget.rowCount()
