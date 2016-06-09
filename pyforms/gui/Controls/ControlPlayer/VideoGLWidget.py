@@ -135,7 +135,8 @@ class VideoGLWidget(QGLWidget):
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
 
-        # Correct a bug related with the overlap of contexts between simultaneous OpenGL windows.
+        # Correct a bug related with the overlap of contexts between
+        # simultaneous OpenGL windows.
         if self._pendingFrames != None:
             for index, frame in enumerate(self._pendingFrames):
                 if len(frame.shape) == 2:
@@ -152,11 +153,16 @@ class VideoGLWidget(QGLWidget):
                 GL.glEnable(GL.GL_TEXTURE_2D)
                 GL.glPixelStorei(GL.GL_UNPACK_ALIGNMENT, 1)
                 GL.glBindTexture(GL.GL_TEXTURE_2D, self.texture[index])
-                GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_BORDER)
-                GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_BORDER)
-                GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
-                GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
-                GL.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGB, w, h, 0, color, GL.GL_UNSIGNED_BYTE, frame)
+                GL.glTexParameterf(
+                    GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_BORDER)
+                GL.glTexParameterf(
+                    GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_BORDER)
+                GL.glTexParameterf(
+                    GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR)
+                GL.glTexParameterf(
+                    GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR)
+                GL.glTexImage2D(
+                    GL.GL_TEXTURE_2D, 0, GL.GL_RGB, w, h, 0, color, GL.GL_UNSIGNED_BYTE, frame)
             self._pendingFrames = None
 
         translateX = (len(self.texture) * self._width) / 2
@@ -209,11 +215,14 @@ class VideoGLWidget(QGLWidget):
                 GL.glBindTexture(GL.GL_TEXTURE_2D, self.texture[texture_index])
 
                 if self._mouseRightDown:
-                    self.drawVideo(self._width, self._height, self._x - (self._lastGlX - self._glX), self._y - (self._lastGlY - self._glY), 0.0)
+                    self.drawVideo(self._width, self._height, self._x - (
+                        self._lastGlX - self._glX), self._y - (self._lastGlY - self._glY), 0.0)
                 elif self._mouseLeftDown and self.DRAG_MODE:
-                    self.drawVideo(self._width, self._height, self._x - (self._lastGlX - self._glX), self._y - (self._lastGlY - self._glY), 0.0)
+                    self.drawVideo(self._width, self._height, self._x - (
+                        self._lastGlX - self._glX), self._y - (self._lastGlY - self._glY), 0.0)
                 else:
-                    self.drawVideo(self._width, self._height, self._x, self._y, 0.0)
+                    self.drawVideo(
+                        self._width, self._height, self._x, self._y, 0.0)
 
             GL.glEnable(GL.GL_DEPTH_TEST)
 
@@ -255,6 +264,8 @@ class VideoGLWidget(QGLWidget):
             self._mouseX = event.x()
             self._mouseY = event.y()
 
+            print('in wheel event')
+
             zoom_factor = event.delta() / float(1500)
 
             self.zoom += zoom_factor
@@ -273,7 +284,8 @@ class VideoGLWidget(QGLWidget):
         self._mouseY = event.y()
         self.updateGL()
         if hasattr(self, 'imgWidth'):
-            self.onDoubleClick(event, self._get_current_x(), self._get_current_y())
+            self.onDoubleClick(
+                event, self._get_current_x(), self._get_current_y())
 
     def mouseReleaseEvent(self, event):
         self._mouseDown = False
@@ -294,7 +306,8 @@ class VideoGLWidget(QGLWidget):
                     #self._lastGlX = self._glX
                     #self._lastGlY = self._glY
 
-                self.onEndDrag(self._mouseStartDragPoint, self._get_current_mouse_point())
+                self.onEndDrag(
+                    self._mouseStartDragPoint, self._get_current_mouse_point())
             self._mouseLeftDown = False
 
     def mousePressEvent(self, event):
@@ -438,3 +451,6 @@ class VideoGLWidget(QGLWidget):
             y = -value[1] / float(self.imgWidth)  # -self._y-self._height)
             z = 0.1  # value[2]
             self._point = x, y, z
+
+    def mouseWheelPressed(self):
+        return self._mouseRightDown
