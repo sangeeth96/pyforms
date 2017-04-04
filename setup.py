@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 setup(
 
 	name='PyForms',
-	version='1.0.beta',
+	version='1.0.0',
 	description="""Pyforms is a Python 2.7 and 3.4 framework to develop GUI application,
 		which promotes modular software design and code reusability with minimal effort.""",
 	author='Ricardo Ribeiro',
