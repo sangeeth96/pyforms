@@ -1,7 +1,7 @@
 ![Important](https://img.shields.io/badge/Important-Note-red.svg "Screen")  
 If you find this project useful, please, do not forget to ![star it](https://raw.githubusercontent.com/UmSenhorQualquer/pyforms/v1.0.beta/docs/imgs/start.png?raw=true "Screen") it.
 
-![New version available](https://img.shields.io/badge/New%20version%20available-1.0.beta-green.svg "Screen")
+![New version available](https://img.shields.io/badge/New%20version%20available-1.0.0-green.svg "Screen")
 
 
 
