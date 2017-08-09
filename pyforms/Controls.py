@@ -7,6 +7,7 @@ if conf.PYFORMS_MODE in ['GUI', 'GUI-OPENCSP']:
 
 	from pyforms.gui.Controls.ControlBase import ControlBase
 	from pyforms.gui.Controls.ControlText import ControlText
+	from pyforms.gui.Controls.ControlPassword import ControlPassword	
 	from pyforms.gui.Controls.ControlBoundingSlider import ControlBoundingSlider
 	from pyforms.gui.Controls.ControlButton import ControlButton
 	from pyforms.gui.Controls.ControlCheckBoxList import ControlCheckBoxList
